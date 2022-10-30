@@ -1,34 +1,35 @@
 # Rubedo Version 2.4.6-beta
 
-Welcome to Rubedo, Rubedo is a brand new Anti-cheat designed for Realms, Servers, Worlds and anyone who wants to protect their worlds from Hackers! Rubedo Uses Minecrafts Most advanced functionality so that includes Gametest.
+Welcome to Rubedo, Rubedo is a brand new Anti-cheat designed for Realms, Servers, Worlds, and anyone who wants to protect their worlds from Hackers! Rubedo Uses Minecraft's Most advanced functionality which includes [Gametest](https://learn.microsoft.com/en-us/minecraft/creator/documents/gametestbuildyourfirstgametest).
 
 ![Rubedo thumbnail](https://api.mcpedl.com/storage/submissions/92154/100/anticheat_1-520x245.png)
 
 ## Features
 
-Rubedo is coded in the Brand new Smelly API V4. This API is extremly Powerful it builds and expands all the possibilites making this anti-cheat possible
+Rubedo is coded in the Brand new Smelly API V4. This API is extremely Powerful it builds and expands all the possibilities making this anti-cheat possible
 
 - Check out Smelly API: https://github.com/smell-of-curry/Smelly-API
 
 # Permissions:
 
-As Rubedo is top of the line, permissions and security is at top priority.
+As Rubedo is top-of-the-line, permissions and security is our main priority.
 
-### Managing Players permisions
+### First-time usage
 
-Before you can start managing players permissions you will need to get permission yourself, first time joining the world you will need to run in chat:
-NOTE: THIS CAN ONLY BE RUN ONCE!!!! AFTER THAT THE FIRST ADMIN WILL NEED TO GIVE PERMS BY USING -role
+Upon applying the pack and joining the world the operator should run the command below which gives you **Admin** permissions.
+
+$$\color{red} \fcolorbox{red}{white} { THIS CAN ONLY BE RUN ONCE!! THE USER CAN GIVE OTHERS ADMIN PERMS VIA -role} $$
 
 ```bash
 /function start
 ```
 
-This will Enable you as a `admin` and give you permission to everything in Rubedo
-
+The command makes the user an `admin` and gives them full access to Rubedo. Ideally, the owner should run this command
+### changing a user's permission
 To change permissions simply run this command
 
 ```bash
--role set <player: String> <role: "member" | "moderator" | "admin", "builder>
+-role set <player: String> <role: "member" | "moderator" | "admin" | "builder">
 ```
 
 So for example:
@@ -37,7 +38,7 @@ So for example:
 -role set "Smell of curry" "admin"
 ```
 
-Its a very simple system and you can manage players permissions with ease
+It's a very simple system and you can manage player's permissions with ease
 to view permissions simply:
 
 ```bash
@@ -46,26 +47,26 @@ to view permissions simply:
 
 ## Commands:
 
-See all commands in game by running **-help** in chat, Please note the permissions
-on each command before using it, to manage permissions use `-role set <player: string> <role: "admin" | "moderator" | "member" | "builder>`
+See all commands in-game by running **-help** in chat, Please note the permissions
+on each command before using it. You can set a users role via  `-role set <player: string> <role: "admin" | "moderator" | "member" | "builder">`
 
-Also Please note that when ever it asks for a player name
-that would require you to add spaces use quotes around your agument.
+Also Please note that whenever it asks for a player name
+that would require you to add spaces use quotes around your argument.
 
 ### Get a list of all commands
 
-**Permission's**: `[]`
+**Permissions needed**: `[]`
 
-NOTE: the help command will ONLY show you the command you CAN run at your current staff level
+> **Note**: the help command will ONLY show you the command you CAN run at your current staff level
 
-```
+```bash
 -help <page: number>
 -help <command: string>
 ```
 
 #### Examples:
 
-```
+```bash
 -help
 -help 2
 -help ban
@@ -73,152 +74,152 @@ NOTE: the help command will ONLY show you the command you CAN run at your curren
 
 ### Ping
 
-**Permission's**: `[]`
+**Permissions needed**: `[]`
 
 Gets the current ping of the server
 
-```
+```bash
 -ping <page: number>
 ```
 
 ### Version
 
-**Permission's**: `[]`
+**Permissions needed**: `[]`
 
 Gets the current version of Rubedo
 
-```
+```bash
 -version
 ```
 
 ### Bans a Player for a length:
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-```
+```bash
 -ban <player: string> <length: int> <unit: string> [reason: string]
 ```
 
-Unit can be one of `years | yrs | weeks | days | hours | hrs | minutes | mins | seconds | secs | milliseconds | msecs | ms`
+Unit can be  `years | yrs | weeks | days | hours | hrs | minutes | mins | seconds | secs | milliseconds | msecs | ms`
 
-Or a date formated like `smhdwy`
+Or a date formatted like `smhdwy`
 
 #### Example
 
-```
+```bash
 -ban "Smell of curry" 20 mins "Hes too good"
 ```
 
 ### Unban a banned player
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-```
+```bash
 -unban <player: string>
 ```
 
 #### Example
 
-```
+```bash
 -unban "Smell of curry"
 ```
 
 ### Freeze a player
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 This stops the player from moving
 
-```
+```bash
 -freeze <player: string> <reason: string>
 ```
 
 #### Example
 
-```
+```bash
 -freeze "Smell of curry" Hacking
 ```
 
 ### Unfreeze a frozen player
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 This stops the player from moving
 
-```
+```bash
 -unfreeze <player: string>
 ```
 
 #### Example
 
-```
+```bash
 -unfreeze "Smell of curry"
 ```
 
 ### Vanish
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-This Changes you into a spectator mode where you are completly invisable, also can say messages in chat
+This Changes you into a spectator mode where you are completely invisible, also can say messages in chat
 making it seem like you left
 
 ![shows player left game](https://i.ibb.co/KrnnpFj/sdsdsd-Capture2sa.png)
 ![shows player joined game](https://i.ibb.co/9HGDW3L/Csdsdsdsdapture.png)
 
-```
+```bash
 -vanish [say: boolean]
 ```
 
-### Mute a player for lengths
+### Mute player
 
-**Permission's**: `["admin", "moderator"]`
+**Permissions needed**: `["admin", "moderator"]`
 
-NOTE: Unit works the same as the ban command
+> **Note**: Unit works the same as the ban command
 
-```
+```bash
 -mute <player: string> <length: int> <unit: string> [reason: string]
 ```
 
 #### Example
 
-```
+```bash
 -mute "Smell of curry" 5 hrs "Sending bad stuff in chat"
 ```
 
-### UnMute a player
+### Unmute player
 
-**Permission's**: `["admin", "moderator"]`
+**Permissions needed**: `["admin", "moderator"]`
 
-```
+```bash
 -unmute <player: string>
 ```
 
 #### Example
 
-```
+```bash
 -unmute "Smell of curry"
 ```
 
-### Clear a players enderchest
+### Clear a player's ender chest
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-```
+```bash
 -ecwipe <player: string>
 ```
 
 #### Example
 
-```
+```bash
 -ecwipe "Smell of curry"
 ```
 
-### Spawn a NPC
+### Spawn an NPC
 
-**Permission's**: `["admin"]`
-NOTE: This will spawn a npc at the command users current location
+**Permissions needed**: `["admin"]`
+> **Note**: This will spawn a npc at the command users current location
 
-```
+```bash
 -npc
 ```
 
@@ -230,39 +231,39 @@ that a protected region would need.
 
 #### Add a new protection region
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-```
+```bash
 -region add <from_x: int> <from_z: int> <to_x:int> <to_z: int> [name: string]
 ```
 
 #### Example
 
-```
+```bash
 -region add 20 90 300 900 "Spawn"
 ```
 
 #### Remove a region
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-NOTE: This removes the region the player is CURRENTLY STANDING IN
+> **Warning** This removes the region the player is CURRENTLY STANDING IN
 
-```
+```bash
 -region remove
 ```
 
 #### List all regions
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-```
+```bash
 -region list
 ```
 
 ### Region Permissions
 
-NOTE: The config.js contains a configurable list of toggles for what
+> **Note**: The config.js contains a configurable list of toggles for what
 a default region can do
 
 ```js
@@ -283,20 +284,20 @@ export const DEFAULT_REGION_PERMISSIONS = {
    */
   pvp: false,
   /**
-   * the entitys allowed in this region
+   * the entities allowed in this region
    */
   allowedEntitys: ["minecraft:player", "minecraft:npc", "minecraft:item"],
 };
 ```
 
-### Changing a regions permission
+### Changing the region's permission
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-NOTE: Running this will automactily change the permission of the
+> **Note**: Running this will automatically change the permission of the
 CURRENT region the player is in
 
-```
+```bash
 -region permission set <key: doorsAndSwitches | openContainers | pvp> <value: boolean>
 ```
 
@@ -308,99 +309,104 @@ CURRENT region the player is in
 -region permission set doorsAndSwitches true
 ```
 
-#### Change mobs that can spawn in region
+#### Change mobs that can spawn in the region
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-NOTE: This will return the region permissions for the region the player is in
+> **Note**: This will return the region permissions for the region the player is in
 
-```
+```bash
 -region permission entities add <entity: string>
 -region permission entities remove <entity: string>
 ```
 
 #### Example
 
-```
+```bash
 -region permission entities add "minecraft:cow"
 -region permission entities remove "minecraft:cow"
 ```
 
 ### List the current permissions for this region
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-NOTE: This will return the region permissions for the region the player is in
+**Note**: This will return the region permissions for the region the player is in
 
-```
+```bash
 -region permission list
 ```
 
 ## Modules:
 
-- **Minecraft Bedrock Anti CBE**: This is a anti hacked items, meaning it checks a players inventory every tick then it tests if they have any banned items, then checks if they have items that have hacked enchants and clears the item from inventory
+- **Anti CBE**: Prevents users from using CBE (Commandblock Exploits) which is done by checking the inventory every tick for these illegal items and clearing it.
 
-- **Minecraft Bedrock Anti Crasher**: This anti crasher works by testing if a player has reached a location Horion's crasher teleports the player to 30 Million so we just test for That location and if they are there we kick the player (USES: player.json)
+- **Anti Crasher**: patches a crashing method (typically used by Horion) that teleports a user 30 million blocks far and kicks a user hopefully preventing the crash (USES: player.json)
 
-- **Minecraft Bedrock Anti Enchants**: This is an anti enchants. This system is used to check all the players inventorys, it searches it for hacked enchants. It figures out its hacked by using a predifined max level for enchant defined in ../Models/Enchantments.js
+- **Anti Illegal Enchants**: Checks every player's inventory to see if any item has enchants above the predefined limit set in [enchantment.ts](src/config/enchantments.ts) or via `-config enchantments set "enchantment" value`
 
-- **Minecraft Bedrock Anti Fly**: This anti fly works by detecting horizontal velocity, bassicly when the player has reached the FLYING_VELOCITY they are considered flying And if they are considered flying for 1 second they will be teleported back.
+- **Anti Fly**:  anti fly works by detecting horizontal velocity, when the user has FLYING_VELOCITY and is not under certain conditions they're considered as flying and, teleports them back to their position
 
-- **Minecraft Bedrock Anti Gamemode**: This checks every tick to test if a player has entered a gamemode that they shouldnet be able to get into. If the player has the staff tag it wont check the list of illegle gamemodes are below, once it knows you are in creative it will set you back and clear your inventory **THIS IGNORES BUILDERS**
+- **Anti Gamemode**: Removes creative and clears the user inventory if the user is not an authorized user.
+  > **Note**: **THIS IGNORES BUILDERS**
 
-- **Minecraft Bedrock Anti NameSpoof**: This is a anti Bad gamertag it checks when a player joins if there name is invaild it determins its invalid by checking the length and characters in it the requirememts are from xbox gamertag requiremnts
+- **Anti NameSpoof**: Locates invalid Gamertags by comparing them against Xbox's Gamertag requirements and kicking the user out if they fail to meet them.
 
-- **Minecraft Bedrock Anti Nuker**: This anti nuker works by loging everytime a player breaks a block Then the next time they break a block it tests the time from now to then And if they broke a block in 50 miliseconds than we place that block back
+- **Anti Nuker**: works by logging the placement of blocks done by the player and detects if the next block break is done impossibly fast (50 milliseconds) then we cancel the breaking event.
 
-- **Minecraft Bedrock Anti Bad Blocks**: This anti block place stops players from placing unwanted blocks Simpliy when a player places a blocks it tests if that block is banned And cancles that block from being placed, (add more blocks to list)
+- **ban bad Blocks/items**: checks if the player has illegal items or if they're placing a banned block and prevents the placement (while the ban list can be controlled via `-config`.
 
-- **Minecraft Bedrock Anti Reach**: Detect players who are reaching and autmaticly cancel that action Works with block placing, block interacting, block destroying, and hurting entitys. tests by using 7 block max reach distance
+- **Anti Reach**: Detect players who are reaching and automatically cancel that action. This covers reach involving interacting, placing, breaking, and attacking. max reach is set to **7**.
+# View Player's inventories & Ender Chests
 
-# View Players inventorys & Ender Chests
+First, you will need to make sure you have admin permission on your server, look at [Permissions](#permissions) for more details
 
-First you will need to make sure you have admin permission in your server, look at permissions for more details [Permission's](#Permissions)
-
-Next give your self `rubedo:gui`
+Next give yourself `Rubedo:gui`
 by typing in chat:
 
-```
-/give @s `rubedo:gui`
+```bash
+/give @s `Rubedo:gui`
 ```
 
-Next Open your gui and you should be prompted with this screen
+Next Open your GUI and you should be prompted with this screen
+
 ![gui screen that shows a ender chest in middle](https://i.ibb.co/Bf0dDVN/Captusdsdsdsdre.png)
+
 
 Next to view a list of players click on the ender chest, then you should be
 prompted with this screen
+
 ![gui screen that shows a list of all players in the world](https://i.ibb.co/QjQXKP0/2Capture.png)
 
-This screen should show each player in the world with a player head with there name as the nameTag
-Click a player you want to view, then you will be shown there inventory:
+This screen should show each player in the world with a player head with their name as the nameTag
+Click a player you want to view, then you will be shown their inventory:
+
 ![gui screen that shows a players inventory](https://i.ibb.co/Hg1fd9b/3Capture.png)
 
-When clicking on items in the players inventory it will remove them from the players inventory and give
+When clicking on items in the player's inventory it will remove them from the player's inventory and give
 you the item
-to view the players ender chest click the ender chest icon at the bottem of the gui screen
+> **Note**: to view the players ender chest click the ender chest icon at the bottom of the gui screen
 
-Once you open up the players ender chest it should look like this:
+Once you open up the player's ender chest it should look like this:
+
 ![gui screen that shows a players ender chest](https://i.ibb.co/yQWnX7v/4Capture.png)
 
-When clicking on items it will remove those items from there ender chest and give it to you
-NOTE: THIS SYSTEM **CANNOT** GRAB ANY NBT OF THE ITEM ONLY THE ITEM ID
+When clicking on items it will remove those items from their ender chest and give them to you
+> **Note**: THIS SYSTEM **CANNOT** GRAB ANY NBT OF THE ITEM. ONLY THE ITEM ID
 
 ## Configuration
 
-Rubedo has made it so easy to edit all of its config files in game. Most Anti cheats make it so
-you have to know how to edit files and make packs, but with rubedo you can do it all in game
+Rubedo has made it so easy to edit all of its config files in-game. Most Anti cheats make it so
+you have to know how to edit files and make packs, but with Rubedo you can do it all in-game
 with commands
 
 ### Manage Protections
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-protections is the name used for the man modules of rubedo this includes stuff like anti nuker, anti reach...
+protections is the name used for the man modules of Rubedo this includes stuff like anti-nuker and anti-reach...
 
-value is the name of this protection you can view all of them in game using -help
+value is the name of this protection you can view all of them in-game using -help
 
 ```
 -config protections enable <value: string>
@@ -410,11 +416,11 @@ value is the name of this protection you can view all of them in game using -hel
 
 ### Manage commands
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 These commands will allow you to disable and enable certain commands
 
-value is the command name you can view all of them in game using -help
+value is the command name you can view all of them in-game using -help
 
 ```
 -config commands enable <value: string>
@@ -424,11 +430,11 @@ value is the command name you can view all of them in game using -help
 
 ### Manage managers
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
-Managers are the main components of rubedo there used to really moderate the server and manage bans, mutes, etc...
+Managers are the main components of Rubedo they're used to moderate the server and manage bans, mutes, etc...
 
-value is the manager name you can view all of them in game using -help
+value is the manager's name you can view all of them in-game using -help
 
 ```
 -config managers enable <value: string>
@@ -438,7 +444,7 @@ value is the manager name you can view all of them in game using -help
 
 ### Manage Banned items
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 You can change what items are banned by adding or removing them with these commands
 
@@ -451,24 +457,24 @@ item is the item id of this item looks like "minecraft:item"
 
 ### Manage Banned Blocks
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 You can change what blocks are banned by adding or removing them with these commands
 
-block is the block id of this item looks like "minecraft:block"
+> **Note**: Block is the block id of this item looks like "minecraft:block"
 
 ```
 -config banned blocks add <block: string>
--config banned blocks remove <item: string>
+-config banned blocks remove <block: string>
 ```
 
 ### Manage Max enchantment levels
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 manage all the max enchantments that this server bans with this command
 
-enchantment is the enchantmentType id you can view these in game using -help
+enchantment is the enchantmentType id you can view these in-game using -help
 
 ```
 -config enchantments set <enchantment: string>
@@ -477,7 +483,7 @@ enchantment is the enchantmentType id you can view these in game using -help
 
 ### Change server appeal link
 
-**Permission's**: `["admin"]`
+**Permissions needed**: `["admin"]`
 
 ```
 -config setAppealLink <link: string>
@@ -486,4 +492,4 @@ enchantment is the enchantmentType id you can view these in game using -help
 
 ## Support
 
-As Rubedo is Still in beta, there might be bugs that you could face. If you need support PLEASE Join the discord and subbmit your problems here: https://discord.gg/a9MjfydsFz
+As Rubedo is Still in beta, there might be bugs that you could face. If you need support PLEASE Join the [Discord](https://discord.gg/a9MjfydsFz) and submit your problems there
