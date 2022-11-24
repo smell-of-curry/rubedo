@@ -190,9 +190,8 @@ export function ViewPlayerEnderChestFill(
 new Page("moderation:see", ViewPlayersFill)
   .setSlots(
     [45, 46, 47, 49, 51, 52, 53],
-    new PageItem(MinecraftItemTypes.stainedGlassPane, {
+    new PageItem(Items.get("rubedo:void"), {
       nameTag: "§r",
-      data: 15,
     }),
     (ctx) => {
       ctx.SetAction();
@@ -218,9 +217,8 @@ new Page("moderation:see", ViewPlayersFill)
 new Page("moderation:see_inventory", ViewPlayerInventoryFill)
   .setSlots(
     [45, 46, 47, 49, 51, 52, 53],
-    new PageItem(MinecraftItemTypes.stainedGlassPane, {
+    new PageItem(Items.get("rubedo:void"), {
       nameTag: "§r",
-      data: 15,
     }),
     (ctx) => {
       ctx.SetAction();
@@ -249,9 +247,8 @@ new Page("moderation:see_ender_chest", ViewPlayerEnderChestFill)
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 49,
       51, 52, 53,
     ],
-    new PageItem(MinecraftItemTypes.stainedGlassPane, {
+    new PageItem(Items.get("rubedo:void"), {
       nameTag: "§r",
-      data: 15,
     }),
     (ctx) => {
       ctx.SetAction();

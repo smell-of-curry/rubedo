@@ -1,6 +1,6 @@
 import { PageItem } from "../Models/PageItem.js";
 import { Page } from "../Models/Page.js";
-import { MinecraftItemTypes } from "@minecraft/server";
+import { MinecraftItemTypes, Items } from "@minecraft/server";
 
 /**
  * The Home page of this GUI this is the most important because
@@ -13,8 +13,7 @@ export let HOME_PAGE = new Page("home")
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48,
       50, 51, 52, 53,
     ],
-    new PageItem(MinecraftItemTypes.stainedGlassPane, {
-      data: 15,
+    new PageItem(Items.get("rubedo:void"), {
       nameTag: "§r",
     }),
     (ctx) => {

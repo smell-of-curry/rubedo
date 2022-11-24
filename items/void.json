@@ -1,0 +1,19 @@
+{
+  "format_version": "1.18.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "rubedo:void"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:foil": true,
+      "minecraft:icon": {
+        "texture": "air"
+      },
+      "minecraft:display_name": {
+        "value": "§r"
+      }
+    }
+  }
+}
