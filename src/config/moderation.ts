@@ -27,6 +27,7 @@ export const BANNED_ITEMS = [
   MinecraftItemTypes.deny.id,
   MinecraftItemTypes.jigsaw.id,
   MinecraftItemTypes.lightBlock.id,
+  MinecraftItemTypes.commandBlockMinecart.id,
   MinecraftItemTypes.commandBlock.id,
   MinecraftItemTypes.repeatingCommandBlock.id,
   MinecraftItemTypes.chainCommandBlock.id,
