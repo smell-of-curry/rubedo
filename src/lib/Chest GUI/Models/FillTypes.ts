@@ -9,7 +9,7 @@ export type FillTypeCallback = (
 ) => void;
 
 /**
- * Fills a entity with desired itmes
+ * Fills a entity with desired items
  */
 export function DefaultFill(entity: Entity, page: Page, extras: any) {
   const container = entity.getComponent("minecraft:inventory").container;

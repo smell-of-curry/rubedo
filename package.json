@@ -12,7 +12,7 @@
   },
   "name": "rubedo",
   "description": "Welcome to Rubedo, Rubedo is a brand new Anti-cheat designed for Realms, Servers, Worlds and anyone who wants to protect there worlds from Hackers! Rubedo Uses Minecrafts Most advanced functionality so that includes Gametest.",
-  "version": "2.5.4-beta",
+  "version": "2.5.5-beta",
   "main": "index.js",
   "repository": {
     "type": "git",

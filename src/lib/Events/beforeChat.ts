@@ -19,7 +19,7 @@ world.events.beforeChat.subscribe((data) => {
 export class beforeChat {
   /**
    * Subscribes to a callback to get notified when a chat is sent that is not a command
-   * @param callback what to be called when one of these entitys inventorys changes
+   * @param callback what to be called when one of these entity's inventory changes
    * @returns the id that is used to unsubscribe
    */
   static subscribe(callback: beforeChatCallback): number {

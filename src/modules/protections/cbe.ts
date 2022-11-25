@@ -33,7 +33,7 @@ world.events.beforeItemUseOn.subscribe((data) => {
   const BANNED_BLOCKS = getConfigId("banned_blocks");
   if (!BANNED_BLOCKS.includes(data.item.typeId)) return;
   data.cancel = true;
-  new Ban(data.source, null, "Placing Banned Block");
+  new Ban(data.source, null, "Placing Banned Blocks");
 });
 
 world.events.blockPlace.subscribe(({ player, block }) => {

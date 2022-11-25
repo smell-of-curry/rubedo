@@ -73,7 +73,7 @@ world.events.blockBreak.subscribe(
     const count = (ViolationCount.get(player) ?? 0) + 1;
     ViolationCount.set(player, count);
     if (nuker_data.banPlayer && count >= nuker_data.violationCount)
-      new Ban(player, null, null, "Using Nuker");
+      new Ban(player, null, "Nuker detected");
 
     // setting block back
     dimension

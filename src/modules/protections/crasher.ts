@@ -24,6 +24,6 @@ forEachValidPlayer((player) => {
     Math.abs(player.location.y) > DISTANCE ||
     Math.abs(player.location.z) > DISTANCE
   ) {
-    new Ban(player, null, null, "Hacking: Crasher");
+    new Ban(player, null, "Crasher detected");
   }
 });

@@ -1,7 +1,7 @@
 import { TickEvent, world } from "@minecraft/server";
 
 /**
- * A list of timeouts that are occuring
+ * A list of timeouts that are occurring
  */
 const TIMEOUTS: Map<string, Timeout> = new Map();
 

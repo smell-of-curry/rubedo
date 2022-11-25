@@ -131,7 +131,7 @@ export class Command<
   }
 
   /**
-   * Registers this command and its apendending arguments
+   * Registers this command and its appending arguments
    * @param callback what to run when this command gets called
    */
   executes(callback: Callback): Command<Callback> {

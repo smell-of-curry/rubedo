@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 |
 | This is the GUI item that is used to open up the gui
-| this is set to the identifer of item.json and is used to find the item
+| this is set to the identifier of item.json and is used to find the item
 | in the gui template
 |
 */
@@ -28,7 +28,7 @@ export const ENTITY_INVENTORY = "rubedo:inventory";
 |--------------------------------------------------------------------------
 |
 | This is the default static page id of what is open by default
-| when you click on the gui, this can be changed but it probably shouldnt
+| when you click on the gui, this can be changed but it probably shouldn't
 | because static pages will need to be changed
 |
 */

@@ -12,14 +12,14 @@
       "description": "Data Module",
       "type": "data",
       "uuid": "1e866a8b-1807-4689-8329-192a43404d5b",
-      "version": [2, 5, 4]
+      "version": [2, 5, 5]
     },
     {
       "description": "Gametest Module",
       "language": "javascript",
       "type": "script",
       "uuid": "9d7fbe86-68ed-4aac-8fe8-dfe980e671fc",
-      "version": [2, 5, 4],
+      "version": [2, 5, 5],
       "entry": "scripts/index.js"
     }
   ],

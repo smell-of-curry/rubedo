@@ -81,9 +81,18 @@ dbcm
   .string("table")
   .executes((ctx, table) => {
     try {
+      console.warn(TABLES);
       const keys = TABLES[table as keyof typeof TABLES].values();
-      ctx.reply(`Values on database: ${table}: ${keys}`);
+      // using JSON.stringify to avoid the [object Object] output
+      ctx.reply(
+        `Values on database: ${table}: ${JSON.stringify(keys, null, 2)}`
+      );
     } catch (error) {
-      ctx.reply(error + error.stack);
+      // likely occurs when table is empty
+      if (error instanceof TypeError) {
+        ctx.reply(`No values on database ${table}`);
+      } else {
+        ctx.reply(error + error.stack);
+      }
     }
   });

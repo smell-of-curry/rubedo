@@ -34,7 +34,7 @@ export class FormCallback {
   }
 
   /**
-   * Reshows the form and shows the user a error message
+   * Reshow the form and shows the user an error message
    * @param message error message to show
    */
   error(message: string) {

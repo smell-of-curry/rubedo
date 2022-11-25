@@ -102,7 +102,7 @@ function getSlotChanges(
       PREVIOUS_CHANGE[entity.id] = change_data;
     } else if (!newInv[i]?.item) {
       // There is no more item in this slot
-      // Meaning the item has been moved across slots or been trown out
+      // Meaning the item has been moved across slots or been thrown out
       const change_data: ISlotChangeReturn = {
         slot: i,
         uid: oldInv[i].uid,
@@ -146,7 +146,7 @@ function getSlotChanges(
   * Converts a itemStack to a unique id
   * @param {ItemStack} item
   * @returns {string}
- 
+
   */
 export function getItemUid(item: ItemStack): string {
   if (!item) return "";
@@ -159,7 +159,7 @@ export function getItemUid(item: ItemStack): string {
 }
 
 /**
- * Gets a entitys inventory but with mapped data
+ * Gets an entity's inventory but with mapped data
  */
 function mapInventory(
   container: PlayerInventoryComponentContainer
@@ -203,9 +203,9 @@ setTickInterval(() => {
 
 export class onEntityInventorySlotChange {
   /**
-   * Subscribes to a callback to get notified when a entitys inventory changes
-   * @param callback what to be called when one of these entitys inventorys changes
-   * @param entities the entitys to grab from
+   * Subscribes to a callback to get notified when a entity's inventory changes
+   * @param callback what to be called when one of these entity's inventory changes
+   * @param entities the entities to grab from
    * @returns the id that is used to unsubscribe
    */
   static subscribe(

@@ -13,7 +13,7 @@ export class CommandCallback {
     this.sender = data.sender;
   }
   /**
-   * Replys to the sender of a command callback
+   * Replies to the sender of a command callback
    * @param text Message or a lang code
    * @example ctx.reply('Hello World!');
    */

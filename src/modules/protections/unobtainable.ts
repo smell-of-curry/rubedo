@@ -37,7 +37,7 @@ function flag(player: Player, index: number) {
   const violations = (ViolationCount.get(player) ?? 0) + 1;
   ViolationCount.set(player, violations);
   if (violations < data.violationCount) return;
-  new Ban(player, null, "Posession of Unobtainable item");
+  new Ban(player, null, "Possession of Unobtainable item");
 }
 
 forEachValidPlayer((player) => {
@@ -59,7 +59,7 @@ forEachValidPlayer((player) => {
     }
     // Player is allowed to have this itemType
     /**
-     * List of all enchantments that are vaild on this item
+     * List of all enchantments that are valid on this item
      */
     let enchantments: string[] = [];
     for (const enchantment of item.getComponent("enchantments").enchantments) {
@@ -67,7 +67,7 @@ forEachValidPlayer((player) => {
       if (enchantment.level > MAX_LEVEL) return flag(player, i);
       if (enchantment.level < 1) return flag(player, 1);
       if (enchantments.includes(enchantment.type.id)) return flag(player, 1);
-      // Enchantment Is vaild
+      // Enchantment is valid
       enchantments.push(enchantment.type.id);
     }
   }

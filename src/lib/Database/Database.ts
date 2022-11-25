@@ -1,5 +1,5 @@
 import {
-  ENTITY_IDENTIFER,
+  ENTITY_IDENTIFIER,
   ENTITY_LOCATION,
   MAX_DATABASE_STRING_SIZE,
 } from "../../config/database";
@@ -51,7 +51,7 @@ export class Database<Type = never> {
    */
   static createEntity(name: string, index: number): Entity {
     let entity = DIMENSIONS.overworld.spawnEntity(
-      ENTITY_IDENTIFER,
+      ENTITY_IDENTIFIER,
       ENTITY_LOCATION
     );
     entity.setDynamicProperty("name", name);
@@ -104,7 +104,7 @@ export class Database<Type = never> {
   }
 
   /**
-   * Grabs all entitys this database is assocated with
+   * Grabs all entities this database is associated with
    */
   get entitys(): Array<Entity> {
     if (this.savedEntitys) return this.savedEntitys;
@@ -112,7 +112,7 @@ export class Database<Type = never> {
       .getEntitiesAtBlockLocation(ENTITY_LOCATION)
       .filter(
         (e) =>
-          e.typeId == ENTITY_IDENTIFER &&
+          e.typeId == ENTITY_IDENTIFIER &&
           e.getDynamicProperty("name") == this.name
       );
     this.savedEntitys = ens;

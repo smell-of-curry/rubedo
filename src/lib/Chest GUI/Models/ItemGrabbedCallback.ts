@@ -80,7 +80,7 @@ export class ItemGrabbedCallback {
   }
 
   /**
-   * Closes the chect GUI when this item is grabbed
+   * Closes the chest GUI when this item is grabbed
    */
   CloseAction() {
     this.gui.despawn();

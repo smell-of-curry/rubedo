@@ -40,16 +40,19 @@ export const DIMENSIONS = {
  * Kicks a player
  * @param player player who should be kicked
  * @param message the message that should be show to player
+ * @param by who kicked the player
  * @param onFail this needs to be used for loops to unregister
  */
 export function kick(
   player: Player,
   message: Array<String> = [],
+  by: String = "Rubedo Anticheat",
   onFail?: () => void
 ): void {
+  console.warn(message)
   if (isServerOwner(player)) {
-    console.warn(`[WARNING]: TRIED TO KICK OWNER`);
-    player.tell(`You have been tried to kick, but you cant!`);
+    console.warn(`[WARNING]: ${by} attempted to kick ${player.name} but failed`);
+    player.tell(`§c ${by} attempted to kick server owner!`);
     return onFail?.();
   }
   try {
@@ -76,7 +79,7 @@ export function getScore(entity: Entity, objective: string): number {
 
 /**
  * grabs the score of a entity off of nameTag
- * @param name Entitys name
+ * @param name Entity's name
  * @param objective objective to get
  * @returns the score of the entity
  */
@@ -170,7 +173,7 @@ export function isLockedDown(): boolean {
 }
 
 /**
- * Sets the server as lockdown or not
+ * sets the server's lockdown status
  * @param val if the server is locked down or not
  */
 export function setLockDown(val: boolean) {
@@ -316,7 +319,7 @@ export function getConfigId<T extends keyof ConfigType>(id: T): ConfigType[T] {
 }
 
 /**
- *
+ * Duration converter
  * @param duration time to convert
  * @example ```
  * durationToMs("10s")
@@ -327,7 +330,7 @@ export function getConfigId<T extends keyof ConfigType>(id: T): ConfigType[T] {
  */
 export function durationToMs(duration: string): number {
   /**
-   * This holds the diffrent duration values this duration can have
+   * This holds the different duration values this duration can have
    * @example `["10d", "20s", "2h"]`
    * @example `["2h"]`
    */
@@ -348,6 +351,11 @@ export function durationToMs(duration: string): number {
   return ms;
 }
 
+/**
+ * Converts a date stored in ms to a Date string
+ * @param duration milliseconds to convert
+ * @returns Date as a string
+ */
 export function msToTime(duration: number) {
   return new Date(duration).toString();
 }

@@ -36,7 +36,7 @@ root
   .executes((ctx, playerName) => {
     const freeze = TABLES.freezes
       .values()
-      .find((freze) => freze.playerName == playerName);
+      .find((freeze) => freeze.playerName == playerName);
     if (!freeze) return ctx.reply(`${playerName} is not frozen`);
 
     TABLES.freezes.delete(freeze.key);

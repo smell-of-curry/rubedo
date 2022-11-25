@@ -103,10 +103,10 @@ export function commandSyntaxFail(
 }
 
 /**
- * Returns a location of the inputed aguments
- * @example parseLocationAugs(["~1", "3", "^7"], { location: [1,2,3] , viewVector: [1,2,3] })
+ * Returns a location of the inputted arguments
+ * @example parseLocationArgs(["~1", "3", "^7"], { location: [1,2,3] , viewVector: [1,2,3] })
  */
-export function parseLocationAugs(
+export function parseLocationArgs(
   [x, y, z]: [x: string, y: string, z: string],
   { location, viewVector }: { location: Location; viewVector: Vector }
 ): Location {
@@ -144,7 +144,7 @@ export function sendCallback(
     if (arg.type.name.endsWith("*")) continue;
     if (arg.type instanceof LocationArgumentType) {
       argsToReturn.push(
-        parseLocationAugs(
+        parseLocationArgs(
           [cmdArgs[i], cmdArgs[i + 1], cmdArgs[i + 2]],
           event.sender
         )

@@ -15,7 +15,7 @@ export const DEFAULT_REGION_PERMISSIONS = {
    */
   pvp: false,
   /**
-   * the entitys allowed in this region
+   * the entities allowed in this region
    */
   allowedEntitys: [
     "minecraft:player",
@@ -80,4 +80,6 @@ export const BLOCK_CONTAINERS = [
   "minecraft:hopper",
   "minecraft:shulker_box",
   "minecraft:undyed_shulker_box",
+  "minecraft:lit_smoker",
+  "minecraft:smoker"
 ];

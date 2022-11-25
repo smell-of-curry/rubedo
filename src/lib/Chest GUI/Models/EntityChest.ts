@@ -21,11 +21,11 @@ export class ChestGUI {
    */
   player: Player;
   /**
-   * The entity that this chest gui is assoicated to
+   * The entity that this chest gui is associated to
    */
   entity: Entity;
   /**
-   * The event that is registerd on this gui
+   * The event that is registered on this gui
    */
   tickEvent: any;
 
@@ -46,7 +46,7 @@ export class ChestGUI {
 
   /**
    * Spawns a entity to be attached to the player
-   * @param player player this entity will be attcked to
+   * @param player player this entity will be attached to
    */
   static spawnEntity(player: Player): Entity {
     try {

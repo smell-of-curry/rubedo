@@ -25,6 +25,6 @@ setTickInterval(() => {
     const count = (ViolationCount.get(player) ?? 0) + 1;
     ViolationCount.set(player, count);
     if (gamemode_config.banPlayer && count >= gamemode_config.violationCount)
-      new Ban(player, null, null, "Invaild Gamemode");
+      new Ban(player, null, "Illegal Gamemode");
   }
 }, 20);

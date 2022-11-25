@@ -4,7 +4,7 @@ import {
   MinecraftEntityTypes,
   world,
 } from "@minecraft/server";
-import { ENTITY_IDENTIFER, ENTITY_LOCATION } from "../../config/database";
+import { ENTITY_IDENTIFIER, ENTITY_LOCATION } from "../../config/database";
 import { OBJECTIVES } from "../../config/objectives";
 import { DIMENSIONS } from "../../utils";
 
@@ -21,7 +21,7 @@ world.events.worldInitialize.subscribe(({ propertyRegistry }) => {
   def.defineNumber("index");
   propertyRegistry.registerEntityTypeDynamicProperties(
     def,
-    EntityTypes.get(ENTITY_IDENTIFER)
+    EntityTypes.get(ENTITY_IDENTIFIER)
   );
 
   let def2 = new DynamicPropertiesDefinition();

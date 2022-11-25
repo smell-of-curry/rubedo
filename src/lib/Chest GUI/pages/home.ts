@@ -4,7 +4,7 @@ import { MinecraftItemTypes, Items } from "@minecraft/server";
 
 /**
  * The Home page of this GUI this is the most important because
- * when the GUI is opned it will open up here, any plugin can
+ * when the GUI is opened it will open up here, any plugin can
  * change this but this is the default screen
  */
 export let HOME_PAGE = new Page("home")

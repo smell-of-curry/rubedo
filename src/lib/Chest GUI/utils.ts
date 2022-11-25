@@ -58,7 +58,7 @@ export async function clearPlayersPointer(
       inventory.setItem(item.slot, item.item);
     }
   } catch (error) {
-    // the item couldnt be cleared that means
+    // the item couldn't be cleared that means
     // they now have a item witch is really BAD
     [
       ...player.dimension.getEntities({
@@ -72,7 +72,7 @@ export async function clearPlayersPointer(
 }
 
 /**
- * Gets a item at slot
+ * Gets an item at slot
  */
 export function getItemAtSlot(entity: Entity, slot: number): ItemStack | null {
   const inventory = entity.getComponent("minecraft:inventory").container;

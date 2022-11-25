@@ -31,7 +31,7 @@ world.events.tick.subscribe((data) => {
 export class onPlayerMove {
   /**
    * Subscribes to a callback to get notified when a player moves
-   * @param callback what to be called when one of these entitys inventorys changes
+   * @param callback what to be called when one of these entity's inventory changes
    * @returns the id that is used to unsubscribe
    */
   static subscribe(callback: onPlayerMoveCallback): number {

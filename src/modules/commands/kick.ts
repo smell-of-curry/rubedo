@@ -9,6 +9,6 @@ new Command({
   .argument(new ArgumentTypes.player())
   .string("reason")
   .executes((ctx, player, reason) => {
-    kick(player, [reason]);
+    kick(player, [reason],ctx.sender.name);
     ctx.reply(`§aKicked ${player.name} from world`);
   });

@@ -11,7 +11,7 @@ import {
 
 new Command({
   name: "lockdown",
-  description: "Toggles the servers lockdown, meaning noone can join",
+  description: "Toggles the servers lockdown, meaning no one can join",
   requires: (player) => getRole(player) == "admin",
 }).executes((ctx) => {
   if (isLockedDown()) {

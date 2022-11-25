@@ -33,7 +33,7 @@ export interface ICommandData {
    * Its good to explain why this failed here
    * @example "You can only run this command in the overworld"
    * @example "You are not a admin"
-   * @example "You have failed to meet the required paramaters for this command"
+   * @example "You have failed to meet the required parameters for this command"
    */
   invaildPermission?: string;
 }

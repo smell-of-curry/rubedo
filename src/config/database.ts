@@ -2,12 +2,12 @@ import { BlockLocation } from "@minecraft/server";
 
 /*
 |--------------------------------------------------------------------------
-| Max Databse string size
+| Max Database string size
 |--------------------------------------------------------------------------
 |
-| Here is the max database save size meaing when a save gets made
+| Here is the max database save size meaning when a save gets made
 | it tests the size of that save and splits up the save depending on this
-| Size. Its releated to minecrafts 32k bit limit.
+| Size. It's related to Minecraft's 32k bit limit.
 |
 */
 export const MAX_DATABASE_STRING_SIZE = 32000;
@@ -21,15 +21,15 @@ export const MAX_DATABASE_STRING_SIZE = 32000;
 | of the database on its nameTag
 |
 */
-export const ENTITY_IDENTIFER = "rubedo:database";
+export const ENTITY_IDENTIFIER = "rubedo:database";
 
 /*
 |--------------------------------------------------------------------------
 | Entity Spawn Location
 |--------------------------------------------------------------------------
 |
-| This is the spawn location of the database entitys there will be
-| Multiple entitys at this location for each chunk
+| This is the spawn location of the database entities there will be
+| Multiple entities at this location for each chunk
 |
 */
 export const ENTITY_LOCATION = new BlockLocation(0, -64, 0);

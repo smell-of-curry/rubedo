@@ -19,7 +19,7 @@ class CommandNameArgumentType implements IArgumentType {
     };
   }
   fail(value: string): string {
-    return `"${value}" is not a vaild command`;
+    return `"${value}" is not a valid command`;
   }
   constructor(public name: string) {}
 }

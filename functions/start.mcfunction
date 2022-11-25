@@ -1,4 +1,4 @@
-## THIS IS FOR THE OWNER OF THE SERVER TO RUN TO GIVE INTATIAL PERMISSION TO THEMSELFS
+## First time usage makes the user recognised as Owner.
 
 tellraw @s {"rawtext":[{"text":"§l§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§9-§f-§r"}]}
 tellraw @s {"rawtext":[{"text":"§l§fWelcome to Rubedo!§r"}]}

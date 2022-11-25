@@ -3,10 +3,10 @@
 | Version
 |--------------------------------------------------------------------------
 |
-| This is the version of rubedo recomended to NOT CHANGE could cause bugs.
+| This is the version of rubedo recommended to NOT CHANGE could cause bugs.
 |
 */
-export const VERSION = "2.5.4-beta";
+export const VERSION = "2.5.5-beta";
 
 /*
 |--------------------------------------------------------------------------

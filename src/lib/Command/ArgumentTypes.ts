@@ -40,15 +40,15 @@ export abstract class IArgumentType {
   name: string = "name";
   /**
    * Checks if a value matches this argument type, also
-   * returns the corridsponding type
+   * returns the corresponding type
    */
   matches(value: string): IArgumentReturnData<any> {
     return { success: true };
   }
   /**
-   * the fail message that should be sent if player fails to meet the matches critera
+   * the fail message that should be sent if player fails to meet the matches criteria
    * @param value value that was sent
-   * @returns what would happen if you didnt enter the right value
+   * @returns what would happen if you didn't enter the right value
    */
   fail(value: string): string {
     return `Value must be of type string!`;
@@ -99,7 +99,7 @@ export class IntegerArgumentType implements IArgumentType {
     };
   }
   fail(value: string): string {
-    return `Value must be vaild number!`;
+    return `Value must be valid number!`;
   }
   constructor(public name: string = "integer") {
     this.name = name;
@@ -116,7 +116,7 @@ export class FloatArgumentType implements IArgumentType {
     };
   }
   fail(value: string): string {
-    return `Value must be vaild float!`;
+    return `Value must be valid float!`;
   }
   constructor(public name: string = "float") {
     this.name = name;
@@ -133,7 +133,7 @@ export class LocationArgumentType implements IArgumentType {
     };
   }
   fail(value: string): string {
-    return `Value needs to be a vaild number, value can include: [~,^]`;
+    return `Value needs to be a valid number, value can include: [~,^]`;
   }
   constructor(public name: string = "location") {
     this.name = name;
@@ -184,7 +184,7 @@ export class TargetArgumentType implements IArgumentType {
     };
   }
   fail(value: string): string {
-    return `${value} is not a vaild target`;
+    return `${value} is not a valid target`;
   }
   constructor(public name: string = "target") {
     this.name = name;

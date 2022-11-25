@@ -16,7 +16,7 @@ forEachValidPlayer((player) => {
           banData.expire ? msToTime(banData.expire - Date.now()) : "Forever"
         }`,
         `§fAppeal at: §b${getConfigId("appealLink")}`,
-      ],
+      ],banData.by,
       () => {
         console.warn(new Error("Failed to kick player"));
         TABLES.bans.delete(player.id);
