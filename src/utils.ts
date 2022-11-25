@@ -49,13 +49,13 @@ export function kick(
   by: String = "Rubedo Anticheat",
   onFail?: () => void
 ): void {
-  console.warn(message)
   if (isServerOwner(player)) {
     console.warn(`[WARNING]: ${by} attempted to kick ${player.name} but failed`);
     player.tell(`§c ${by} attempted to kick server owner!`);
     return onFail?.();
   }
   try {
+    console.warn(`[WARNING]: ${by} kicked ${player.name}`);
     player.runCommand(`kick "${player.name}" §r${message.join("\n")}`);
     player.triggerEvent("kick");
   } catch (error) {
