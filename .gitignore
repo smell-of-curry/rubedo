@@ -5,6 +5,5 @@ node_modules
 
 build.js
 
-scripts/*
-!scripts/index.js
-!scripts/index.js.map
+project/behavior/scripts
+dist

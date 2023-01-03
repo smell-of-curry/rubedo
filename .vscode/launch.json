@@ -6,7 +6,7 @@
       "request": "attach",
       "name": "Wait for Minecraft Debug Connections",
       "mode": "listen",
-      "localRoot": "${workspaceFolder}/",
+      "localRoot": "${workspaceFolder}/project",
       "port": 19144
     }
   ]

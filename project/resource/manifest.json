@@ -1,0 +1,23 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "pack.name",
+    "description": "pack.description",
+    "min_engine_version": [1, 19, 0],
+    "uuid": "b04eff01-8b6a-444e-ae1c-646e812fc564",
+    "version": [2, 0, 0]
+  },
+  "modules": [
+    {
+      "description": "Resource Module",
+      "type": "resources",
+      "uuid": "e2dd8d6f-0273-4a8c-8fe8-7f9fb401cb25",
+      "version": [2, 0, 0]
+    }
+  ],
+  "metadata": {
+    "authors": ["Smell of curry"],
+    "license": "MIT",
+    "url": "https://github.com/smell-of-curry/rubedo"
+  }
+}

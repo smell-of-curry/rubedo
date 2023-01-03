@@ -1,0 +1,27 @@
+on:
+  push
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.17.0
+
+      - name: Install Packages & Run Script
+        run: npm i && npm run build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: ${{ github.workspace }}/changelog.md
+          files: dist/*.mc*
