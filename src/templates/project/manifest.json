@@ -1,0 +1,52 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "pack.name",
+    "description": "pack.description",
+    "min_engine_version": [1, 21, 70],
+    "uuid": "1284454d-fed1-4eaf-bff8-743c5b879efd",
+    "version": [1, 0, 0]
+  },
+  "modules": [
+    {
+      "description": "Data Module",
+      "type": "data",
+      "uuid": "8e46d8a3-495d-48a5-b342-ed452dc90061",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Script API Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "03e31409-a219-4300-bc3d-c59e480d8998",
+      "version": [1, 0, 0],
+      "entry": "scripts/index.js"
+    },
+    {
+      "description": "Rubedo Module",
+      "type": "rubedo",
+      "dependencies": [
+        {
+          "module_name": "smell-of-curry/bedrock-item-database",
+          "version": "latest"
+        }
+      ]
+    }
+  ],
+  "capabilities": ["script_eval"],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.0.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0-beta"
+    }
+  ],
+  "metadata": {
+    "authors": ["Your Name"],
+    "license": "MIT",
+    "url": "https://github.com/your-username/your-repo"
+  }
+}

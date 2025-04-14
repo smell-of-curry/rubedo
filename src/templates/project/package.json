@@ -1,0 +1,39 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "version": "1.0.0",
+  "description": "A Minecraft Bedrock addon built with Rubedo",
+  "main": "scripts/index.js",
+  "scripts": {
+    "build": "ts-node --project tsconfig.json ./build.ts",
+    "dev": "ts-node --project tsconfig.json build.ts dev"
+  },
+  "keywords": [
+    "minecraft",
+    "bedrock",
+    "addon",
+    "script-api",
+    "rubedo"
+  ],
+  "author": "{{AUTHOR}}",
+  "license": "MIT",
+  "overrides": {
+    "@minecraft/server": "2.0.0-beta.1.21.70-stable"
+  },
+  "dependencies": {
+    "@minecraft/common": "1.2.0",
+    "@minecraft/debug-utilities": "1.0.0-beta.1.21.70-stable",
+    "@minecraft/math": "2.2.1",
+    "@minecraft/server-ui": "2.0.0-beta.1.21.70-stable",
+    "@minecraft/vanilla-data": "1.21.70"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.18",
+    "fs-extra": "^11.1.1",
+    "@types/fs-extra": "^11.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "optionalDependencies": {
+    "@sentry/esbuild-plugin": "^2.10.0"
+  }
+} 

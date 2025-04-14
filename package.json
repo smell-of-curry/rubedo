@@ -1,0 +1,35 @@
+{
+  "name": "rubedo",
+  "version": "1.0.0",
+  "description": "A fast, lightweight, versatile MCBE addon linker for Script API development",
+  "main": "dist/index.js",
+  "bin": {
+    "rubedo": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/node": "^22.14.1",
+    "@types/uuid": "^10.0.0",
+    "chokidar": "^4.0.3",
+    "commander": "^13.1.0",
+    "esbuild": "^0.25.2",
+    "fs-extra": "^11.3.0",
+    "glob": "^11.0.1",
+    "simple-git": "^3.27.0",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
+  }
+}
