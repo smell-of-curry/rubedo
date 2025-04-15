@@ -18,19 +18,9 @@
       "description": "Script API Module",
       "type": "script",
       "language": "javascript",
-      "uuid": "03e31409-a219-4300-bc3d-c59e480d8998",
+      "uuid": "9091509e-481e-4158-bac8-59ffe581fc88",
       "version": [1, 0, 0],
       "entry": "scripts/index.js"
-    },
-    {
-      "description": "Rubedo Module",
-      "type": "rubedo",
-      "dependencies": [
-        {
-          "module_name": "smell-of-curry/bedrock-item-database",
-          "version": "latest"
-        }
-      ]
     }
   ],
   "capabilities": ["script_eval"],
@@ -42,6 +32,12 @@
     {
       "module_name": "@minecraft/server-ui",
       "version": "2.0.0-beta"
+    }
+  ],
+  "rubedo_dependencies": [
+    {
+      "module_name": "smell-of-curry/bedrock-item-database",
+      "version": "latest"
     }
   ],
   "metadata": {

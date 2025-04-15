@@ -66,4 +66,5 @@ export interface Manifest {
   capabilities?: string[];
   dependencies?: ManifestDependency[];
   metadata?: ManifestMetadata;
+  rubedo_dependencies?: RubedoDependency[];
 } 

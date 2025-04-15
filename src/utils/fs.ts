@@ -25,12 +25,7 @@ export async function readManifest(
  * @returns The Rubedo dependencies
  */
 export function getRubedoDependencies(manifest: Manifest): RubedoDependency[] {
-  const rubedoModule = manifest.modules.find((m) => m.type === "rubedo");
-  if (!rubedoModule || !("dependencies" in rubedoModule)) {
-    return [];
-  }
-
-  return (rubedoModule as any).dependencies || [];
+  return manifest.rubedo_dependencies || [];
 }
 
 /**

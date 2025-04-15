@@ -18,30 +18,56 @@ Rubedo aims to be that solution, providing a build framework not just smart but 
 
 ## Manifest Format
 
-Rubedo extends the standard Minecraft Bedrock manifest.json with a new module type:
+Rubedo extends the standard Minecraft Bedrock manifest.json with a `rubedo_dependencies` field:
 
 ```json
 {
+  "format_version": 2,
+  "header": {
+    "name": "test-rubedo-addon",
+    "description": "A Minecraft Bedrock addon built with Rubedo",
+    "min_engine_version": [1, 21, 70],
+    "uuid": "fccfa819-7bbd-4ec6-b870-4bc429835151",
+    "version": [1, 0, 0]
+  },
   "modules": [
     {
-      "description": "Rubedo Module",
-      "type": "rubedo",
-      "dependencies": [
-        {
-          "module_name": "smell-of-curry/bedrock-item-database",
-          "version": "bd958a54d970246763a4ad15af346aca8e6b235c"
-        },
-        {
-          "module_name": "another-org/some-repo",
-          "version": "latest"
-        },
-        {
-          "module_name": "example-org/example-repo",
-          "version": "a1b2c3d"  // Commit hash (short or full)
-        }
-      ]
+      "description": "Data Module",
+      "type": "data",
+      "uuid": "29713e70-db05-48af-9c4f-a4c7a35e8c53",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Script API Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "178bd5a7-78c3-475d-a6c9-1ba8c3fb336d",
+      "version": [1, 0, 0],
+      "entry": "scripts/index.js"
     }
-  ]
+  ],
+  "capabilities": ["script_eval"],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.0.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0-beta"
+    }
+  ],
+  "rubedo_dependencies": [
+    {
+      "module_name": "smell-of-curry/bedrock-item-database",
+      "version": "latest"
+    }
+  ],
+  "metadata": {
+    "authors": ["smell of curry"],
+    "license": "MIT",
+    "url": "https://github.com/your-username/your-repo"
+  }
 }
 ```
 
@@ -153,20 +179,6 @@ So take a look at how your `manifest.json` would look:
       "uuid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "version": [1, 0, 0],
       "entry": "scripts/index.js"
-    },
-    {
-      "description": "Rubedo Module",
-      "type": "rubedo",
-      "dependencies": [
-        {
-            "module_name": "smell-of-curry/bedrock-item-database",
-            "version": "1.0.0"
-        },
-        {
-            "module_name": "some-cool-person/some-amazing-addon",
-            "version": "1.0.0"
-        }
-      ]
     }
   ],
   "capabilities": ["script_eval"],
@@ -178,8 +190,18 @@ So take a look at how your `manifest.json` would look:
     {
       "module_name": "@minecraft/server-ui",
       "version": "2.0.0-beta"
-    },
+    }
     // ... other dependencies (@minecraft/server-net, etc.)
+  ],
+  "rubedo_dependencies": [
+    {
+      "module_name": "smell-of-curry/bedrock-item-database",
+      "version": "1.0.0"
+    },
+    {
+      "module_name": "some-cool-person/some-amazing-addon",
+      "version": "1.0.0"
+    }
   ],
   "metadata": {
     "authors": ["Smell of curry"],
@@ -189,7 +211,7 @@ So take a look at how your `manifest.json` would look:
 }
 ```
 
-See... pretty simple, just add a new Rubedo Module section to your `manifest.json`.
+See... pretty simple, just add the `rubedo_dependencies` section to your `manifest.json`.
 
 ### 2.2. The Build Process
 
