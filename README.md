@@ -145,13 +145,33 @@ my-cool-rubedo-addon/
 
 So it almost looks the exact same but just modifying on top of the original files. 
 
+### Custom Module Path for Windows Path Length Limitation
+
+On Windows, you might encounter path length limitations when installing dependencies with long paths. To solve this, you can set the `RUBEDO_MODULES_DIR` environment variable to specify a shorter path for storing modules:
+
+```powershell
+# Set a custom path for modules (Windows PowerShell)
+$env:RUBEDO_MODULES_DIR = "C:\rubedo_modules"
+
+# Then run your installation
+rubedo install
+```
+
+```cmd
+# Set a custom path for modules (Windows Command Prompt)
+set RUBEDO_MODULES_DIR=C:\rubedo_modules
+rubedo install
+```
+
+This is especially useful when working with Minecraft UWP paths which can be extremely long.
+
 ## Okay so how do I use it?
 
 ### 2.1. Manifest Extension and Dependency Declarations
 
 Alright... your interested nice! Rubedo will change your addon development for the better but first you need to understand what is going on.
 
-Inside your `manifest.json` Rubedo is extending this adding a new field `rubedo_dependencies`. This field works like `dependencies` inside your current `manifest.json` but is for Rubedo addons.
+Inside your `manifest.json` Rubedo adds a new top-level field called `rubedo_dependencies`. This field works similar to `dependencies` inside your current `manifest.json` but is specifically for Rubedo addons.
 
 So take a look at how your `manifest.json` would look:
 
