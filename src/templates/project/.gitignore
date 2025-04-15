@@ -1,5 +1,18 @@
+# Node.js dependencies
 node_modules/
-scripts/
 package-lock.json
-build/
+
+# Build output
+scripts/
+
+# Rubedo dependencies
 rubedo_modules/
+
+# Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
