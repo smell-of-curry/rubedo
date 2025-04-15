@@ -7,15 +7,18 @@
     "rubedo": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc && npm run copy-templates",
     "start": "node dist/index.js",
-    "dev": "tsc --watch"
+    "dev": "npm run prepare && tsc --watch",
+    "copy-templates": "node dist/scripts/copy-templates.js",
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@expo/sudo-prompt": "^9.3.2",
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
     "@types/node": "^22.14.1",
@@ -25,11 +28,13 @@
     "esbuild": "^0.25.2",
     "fs-extra": "^11.3.0",
     "glob": "^11.0.1",
+    "ignore": "^5.3.0",
     "simple-git": "^3.27.0",
     "typescript": "^5.8.3",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.5"
   }
 }
