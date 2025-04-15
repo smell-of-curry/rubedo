@@ -4,6 +4,7 @@
 export interface RubedoDependency {
   module_name: string;
   version: string;
+  localPath?: string; // Path to a local instance of the repository
 }
 
 /**

@@ -1,8 +1,9 @@
 import simpleGit, { SimpleGit } from "simple-git";
-import path from "path";
-import { ensureDir, getModulePath } from "./fs";
+import { getModulePath } from "./fs";
 import { RubedoDependency } from "./types";
 import fs from "fs-extra";
+import { execWithLog } from "./exec";
+import path from "path";
 
 /**
  * Gets the GitHub URL for a module
@@ -21,15 +22,12 @@ export function getGitHubUrl(moduleName: string): string {
 export async function cloneDependency(
   dependency: RubedoDependency
 ): Promise<string> {
-  const { module_name, version } = dependency;
+  const { module_name, version, localPath } = dependency;
   const [org] = module_name.split("/");
   if (!org) {
     console.error(`Invalid module name: ${module_name}`);
     process.exit(1);
   }
-  const orgDir = path.join(path.resolve(process.cwd(), "rubedo_modules"), org);
-
-  await ensureDir(orgDir);
 
   const git: SimpleGit = simpleGit();
   const repoPath = getModulePath(module_name);
@@ -41,19 +39,47 @@ export async function cloneDependency(
     return repoPath;
   }
 
-  // Clone the repository
-  // TODO: Add a progress bar
-  // TODO: Allow for users to use a local path
+  // If a local path is provided, copy from that location instead of cloning
+  if (localPath) {
+    if (!(await fs.pathExists(localPath))) {
+      console.error(`Local path does not exist: ${localPath}`);
+      process.exit(1);
+    }
+    
+    console.log(`Using local repository from ${localPath}...`);
+    // Ensure the parent directory exists
+    await fs.ensureDir(path.dirname(repoPath));
+    
+    // Copy the contents from the local path to the repository path
+    // Make sure source and destination are different
+    if (localPath !== repoPath) {
+      await fs.copy(localPath, repoPath);
+    } else {
+      console.log(`Source and destination are the same, skipping copy.`);
+    }
+    
+    console.log(`Repository ${module_name} linked from local path ${localPath}`);
+    return repoPath;
+  }
+
+  // Clone the repository from GitHub
   console.log(`Cloning ${module_name}...`);
   await git.clone(getGitHubUrl(module_name), repoPath);
 
   // Checkout the specified version
-  console.log(`Checking out ${getVersionDescription(version)}...`);
+  console.log(`Checking out ${getVersionDescription(version, localPath)}...`);
   await checkoutVersion(dependency);
+
+  if (process.env['RUBEDO_MODULES_DIR']) {
+    // run `npm install` in the repo as it is installed in a different directory
+    console.log(`Running npm install in ${repoPath}...`);
+    await execWithLog(`npm install`, { cwd: repoPath });
+  }
 
   console.log(
     `Repository ${module_name} cloned and checked out to ${getVersionDescription(
-      version
+      version,
+      localPath
     )}`
   );
 
@@ -67,7 +93,7 @@ export async function cloneDependency(
 export async function updateDependency(
   dependency: RubedoDependency
 ): Promise<void> {
-  const { module_name, version } = dependency;
+  const { module_name, version, localPath } = dependency;
   const repoPath = getModulePath(module_name);
 
   // Check if the repository exists
@@ -77,16 +103,48 @@ export async function updateDependency(
     return;
   }
 
-  // Update the repository
+  // If local path is provided, update from that path
+  if (localPath) {
+    if (!(await fs.pathExists(localPath))) {
+      console.error(`Local path does not exist: ${localPath}`);
+      process.exit(1);
+    }
+    
+    console.log(`Updating ${module_name} from local path ${localPath}...`);
+    
+    // Make sure source and destination are different
+    if (localPath !== repoPath) {
+      // Remove the existing files and copy the new ones
+      await fs.emptyDir(repoPath);
+      await fs.copy(localPath, repoPath);
+    } else {
+      console.log(`Source and destination are the same, skipping copy.`);
+    }
+
+    // run `npm install` on the local path to ensure dependencies are installed
+    await execWithLog(`npm install`, { cwd: localPath });
+    
+    console.log(`Repository ${module_name} updated from local path ${localPath}`);
+    return;
+  }
+
+  // Update the repository from GitHub
   console.log(`Updating ${module_name}...`);
   const git: SimpleGit = simpleGit(repoPath);
 
   try {
     await git.fetch("origin");
-    console.log(`Checking out ${getVersionDescription(version)}...`);
+    console.log(`Checking out ${getVersionDescription(version, localPath)}...`);
     await checkoutVersion(dependency);
+
+    if (process.env['RUBEDO_MODULES_DIR']) {
+      // run `npm install` in the repo as it is installed in a different directory
+      console.log(`Running npm install in ${repoPath}...`);
+      await execWithLog(`npm install`, { cwd: repoPath });
+    }
+    
     console.log(
-      `Repository ${module_name} updated to ${getVersionDescription(version)}`
+      `Repository ${module_name} updated to ${getVersionDescription(version, localPath)}`
     );
   } catch (error) {
     console.error(`Error updating ${module_name}:`, error);
@@ -101,8 +159,14 @@ export async function updateDependency(
 export async function checkoutVersion(
   dependency: RubedoDependency
 ): Promise<void> {
-  const { module_name, version } = dependency;
+  const { module_name, version, localPath } = dependency;
   const repoPath = getModulePath(module_name);
+
+  // Skip checkout for local paths
+  if (localPath) {
+    console.log(`Using local repository from ${localPath}, skipping checkout.`);
+    return;
+  }
 
   const git: SimpleGit = simpleGit(repoPath);
 
@@ -139,10 +203,13 @@ export async function checkoutVersion(
 /**
  * Gets a human-readable description of a dependency version
  * @param version The version string
+ * @param localPath Optional local path to the repository
  * @returns A human-readable description
  */
-export function getVersionDescription(version: string): string {
-  if (version === "latest") {
+export function getVersionDescription(version: string, localPath?: string): string {
+  if (localPath) {
+    return `local path ${localPath}`;
+  } else if (version === "latest") {
     return "latest version";
   } else if (version.match(/^\d+\.\d+\.\d+$/)) {
     return `version ${version}`;
