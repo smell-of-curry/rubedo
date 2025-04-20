@@ -4,6 +4,8 @@ import { RubedoDependency } from "./types";
 import fs from "fs-extra";
 import { execWithLog } from "./exec";
 import path from "path";
+import crypto from "crypto";
+import os from "os";
 
 /**
  * Gets the GitHub URL for a module
@@ -12,6 +14,67 @@ import path from "path";
  */
 export function getGitHubUrl(moduleName: string): string {
   return `https://github.com/${moduleName}.git`;
+}
+
+/**
+ * Creates a directory symlink if supported, or falls back to copying for platforms without symlink support
+ * @param sourcePath Source directory path
+ * @param targetPath Target directory path
+ */
+async function createDirectoryLink(sourcePath: string, targetPath: string): Promise<void> {
+  // Ensure parent directory exists
+  await fs.ensureDir(path.dirname(targetPath));
+
+  try {
+    // Remove existing directory or symlink if it exists
+    if (await fs.pathExists(targetPath)) {
+      // Check if it's already a symlink pointing to the correct location
+      try {
+        const stats = await fs.lstat(targetPath);
+        if (stats.isSymbolicLink()) {
+          const currentTarget = await fs.readlink(targetPath);
+          if (path.resolve(currentTarget) === path.resolve(sourcePath)) {
+            console.log(`Symlink already exists and points to the correct location: ${targetPath} -> ${sourcePath}`);
+            return;
+          }
+        }
+      } catch (e) {
+        // Ignore errors and just remove existing directory
+      }
+
+      await fs.remove(targetPath);
+    }
+
+    // Create a symbolic link
+    // Windows requires admin privileges for symlinks unless Developer Mode is enabled
+    // We'll try to create a symlink, and if it fails, we'll fall back to junction (Windows) or copying
+    try {
+      await fs.symlink(sourcePath, targetPath, 'dir');
+      console.log(`Created symbolic link: ${targetPath} -> ${sourcePath}`);
+    } catch (error: any) {
+      if (os.platform() === 'win32') {
+        try {
+          // On Windows, try to create a junction which doesn't require admin privileges
+          await fs.ensureDir(path.dirname(targetPath));
+          
+          // Execute mklink /J command through cmd
+          await execWithLog(`mklink /J "${targetPath}" "${sourcePath}"`, { shell: true });
+          console.log(`Created directory junction: ${targetPath} -> ${sourcePath}`);
+        } catch (junctionError: any) {
+          console.warn(`Failed to create junction, falling back to copying: ${junctionError.message}`);
+          await fs.copy(sourcePath, targetPath);
+          console.log(`Copied directory contents from ${sourcePath} to ${targetPath}`);
+        }
+      } else {
+        console.warn(`Failed to create symlink, falling back to copying: ${error.message}`);
+        await fs.copy(sourcePath, targetPath);
+        console.log(`Copied directory contents from ${sourcePath} to ${targetPath}`);
+      }
+    }
+  } catch (error: any) {
+    console.error(`Error creating directory link: ${error.message}`);
+    throw error;
+  }
 }
 
 /**
@@ -32,14 +95,7 @@ export async function cloneDependency(
   const git: SimpleGit = simpleGit();
   const repoPath = getModulePath(module_name);
 
-  // Check if the repository already exists
-  if (await fs.pathExists(repoPath)) {
-    console.log(`Repository ${module_name} already exists, updating...`);
-    await updateDependency(dependency);
-    return repoPath;
-  }
-
-  // If a local path is provided, copy from that location instead of cloning
+  // If a local path is provided, create a directory link
   if (localPath) {
     if (!(await fs.pathExists(localPath))) {
       console.error(`Local path does not exist: ${localPath}`);
@@ -47,19 +103,26 @@ export async function cloneDependency(
     }
     
     console.log(`Using local repository from ${localPath}...`);
-    // Ensure the parent directory exists
-    await fs.ensureDir(path.dirname(repoPath));
     
-    // Copy the contents from the local path to the repository path
-    // Make sure source and destination are different
-    if (localPath !== repoPath) {
-      await fs.copy(localPath, repoPath);
-    } else {
-      console.log(`Source and destination are the same, skipping copy.`);
-    }
+    // Create a directory link from the repo path to the local path
+    await createDirectoryLink(localPath, repoPath);
     
     console.log(`Repository ${module_name} linked from local path ${localPath}`);
     return repoPath;
+  }
+
+  // Check if the repository already exists and is not a symlink
+  if (await fs.pathExists(repoPath)) {
+    // Check if it's a symlink (from a previous local path config)
+    const stats = await fs.lstat(repoPath);
+    if (stats.isSymbolicLink()) {
+      // Remove the symlink to replace with a git clone
+      await fs.remove(repoPath);
+    } else {
+      console.log(`Repository ${module_name} already exists, updating...`);
+      await updateDependency(dependency);
+      return repoPath;
+    }
   }
 
   // Clone the repository from GitHub
@@ -103,7 +166,7 @@ export async function updateDependency(
     return;
   }
 
-  // If local path is provided, update from that path
+  // If local path is provided, create/update the directory link
   if (localPath) {
     if (!(await fs.pathExists(localPath))) {
       console.error(`Local path does not exist: ${localPath}`);
@@ -112,20 +175,25 @@ export async function updateDependency(
     
     console.log(`Updating ${module_name} from local path ${localPath}...`);
     
-    // Make sure source and destination are different
-    if (localPath !== repoPath) {
-      // Remove the existing files and copy the new ones
-      await fs.emptyDir(repoPath);
-      await fs.copy(localPath, repoPath);
-    } else {
-      console.log(`Source and destination are the same, skipping copy.`);
-    }
-
-    // run `npm install` on the local path to ensure dependencies are installed
-    await execWithLog(`npm install`, { cwd: localPath });
+    // Create a directory link from the repo path to the local path
+    // This will handle updating an existing link or replacing a non-link directory
+    await createDirectoryLink(localPath, repoPath);
     
-    console.log(`Repository ${module_name} updated from local path ${localPath}`);
+    console.log(`Repository ${module_name} linked from local path ${localPath}`);
     return;
+  }
+
+  // Check if it's a symlink (from a previous local path config)
+  try {
+    const stats = await fs.lstat(repoPath);
+    if (stats.isSymbolicLink()) {
+      // Remove the symlink to replace with a git clone
+      await fs.remove(repoPath);
+      await cloneDependency(dependency);
+      return;
+    }
+  } catch (error) {
+    // Ignore errors and continue with git update
   }
 
   // Update the repository from GitHub
