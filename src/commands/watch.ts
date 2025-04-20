@@ -3,16 +3,26 @@ import path from 'path';
 import { buildAddon } from '../utils/build';
 import { getRubedoModulesDir } from '../utils/fs';
 import fs from 'fs';
+import { displayUpdateAvailableMessage } from '../utils/messages';
 
 /**
  * Watches for changes and rebuilds the addon
+ * @param options Command options
  */
-export async function watchCommand(): Promise<void> {
+export async function watchCommand(options: {
+  skipUpdateCheck?: boolean
+} = {}): Promise<void> {
   try {
     console.log('Watching for changes...');
     
-    // Initial build
-    await buildAddon();
+    // Initial build - Check for updates on the first build unless explicitly skipped
+    const initialBuildResult = await buildAddon({ 
+      skipUpdateCheck: options.skipUpdateCheck 
+    });
+    
+    if (initialBuildResult.updatesAvailable && initialBuildResult.updatedDependencies) {
+      displayUpdateAvailableMessage(initialBuildResult.updatedDependencies, 'watch');
+    }
     
     const cwd = process.cwd();
     console.log(`Current working directory: ${cwd}`);
@@ -90,7 +100,8 @@ export async function watchCommand(): Promise<void> {
         // Temporarily pause the watcher to avoid rebuild loops
         watcher.unwatch(watchPaths);
         
-        await buildAddon();
+        // Always skip update checks during watch rebuilds
+        await buildAddon({ skipUpdateCheck: true });
         
         console.log('Rebuild completed, watching for changes...');
       } catch (error) {

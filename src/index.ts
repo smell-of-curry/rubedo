@@ -37,12 +37,14 @@ program
 program
   .command("build")
   .description("Build the addon")
-  .action(buildCommand);
+  .option('--skip-update-check', 'Skip checking for dependency updates')
+  .action((options) => buildCommand(options));
 
 // Watch for changes and rebuild
 program
   .command("watch")
   .description("Watch for changes and rebuild automatically")
-  .action(watchCommand);
+  .option('--skip-update-check', 'Skip checking for dependency updates')
+  .action((options) => watchCommand(options));
 
 program.parse(process.argv);

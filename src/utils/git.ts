@@ -221,3 +221,135 @@ export function getVersionDescription(version: string, localPath?: string): stri
     return `branch or ref '${version}'`;
   }
 }
+
+/**
+ * Checks if updates are available for a dependency
+ * @param dependency The dependency to check
+ * @returns True if updates are available, false otherwise
+ */
+export async function hasUpdates(
+  dependency: RubedoDependency
+): Promise<boolean> {
+  const { module_name, version, localPath } = dependency;
+  const repoPath = getModulePath(module_name);
+
+  // Check if the repository exists
+  if (!(await fs.pathExists(repoPath))) {
+    // Repository doesn't exist, so it needs to be installed
+    return true;
+  }
+
+  // If local path is provided, no need to check for updates
+  // The directory link will always reflect the current state of the local path
+  if (localPath) {
+    // Check if it's correctly linked (symlink or junction)
+    try {
+      const stats = await fs.lstat(repoPath);
+      if (stats.isSymbolicLink()) {
+        const linkTarget = await fs.readlink(repoPath);
+        // If it's not pointing to the correct location, it needs an update
+        return path.resolve(linkTarget) !== path.resolve(localPath);
+      } else {
+        // Not a symlink, so it needs to be updated to become a symlink
+        return true;
+      }
+    } catch (error) {
+      console.log(`Error checking symlink for ${module_name}, assuming update needed`);
+      return true;
+    }
+  }
+
+  // Check if it's a symlink (from a previous local path config)
+  try {
+    const stats = await fs.lstat(repoPath);
+    if (stats.isSymbolicLink()) {
+      // It's a symlink but shouldn't be, since localPath is not provided
+      return true;
+    }
+  } catch (error) {
+    // Ignore errors and continue with git check
+  }
+
+  // For git repositories
+  const git: SimpleGit = simpleGit(repoPath);
+  try {
+    await git.fetch("origin");
+    
+    if (version === "latest") {
+      // Get the default branch
+      const branches = await git.branch();
+      const defaultBranch = branches.current;
+      
+      // Check if there are any changes
+      const status = await git.status();
+      return status.behind > 0;
+    } else if (version.match(/^\d+\.\d+\.\d+$/)) {
+      // Version is a tag like "1.0.0", check if we're on that tag
+      const currentTag = await getCurrentTag(git);
+      return currentTag !== `v${version}`;
+    } else if (version.match(/^[0-9a-f]{40}$/) || version.match(/^[0-9a-f]{7,8}$/)) {
+      // Version is a commit hash, check if we're on that commit
+      const currentCommit = await git.revparse(['HEAD']);
+      return !currentCommit.startsWith(version);
+    } else {
+      // Version is a branch, check if we're on that branch and if there are updates
+      const currentBranch = (await git.branch()).current;
+      if (currentBranch !== version) {
+        return true;
+      }
+      
+      const status = await git.status();
+      return status.behind > 0;
+    }
+  } catch (error) {
+    console.log(`Error checking updates for ${module_name}, assuming update needed:`, error);
+    return true;
+  }
+}
+
+/**
+ * Gets the current tag for a repository
+ * @param git SimpleGit instance
+ * @returns The current tag or null if not on a tag
+ */
+async function getCurrentTag(git: SimpleGit): Promise<string | null> {
+  try {
+    const tags = await git.tags();
+    const currentCommit = await git.revparse(['HEAD']);
+    
+    for (const tag of tags.all) {
+      const tagCommit = await git.revparse([tag]);
+      if (tagCommit === currentCommit) {
+        return tag;
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.log(`Error getting current tag:`, error);
+    return null;
+  }
+}
+
+/**
+ * Checks if any dependencies have updates available
+ * @param dependencies List of dependencies to check
+ * @returns Array of dependencies that have updates available
+ */
+export async function checkForUpdates(
+  dependencies: RubedoDependency[]
+): Promise<RubedoDependency[]> {
+  const dependenciesWithUpdates: RubedoDependency[] = [];
+  
+  for (const dependency of dependencies) {
+    try {
+      if (await hasUpdates(dependency)) {
+        dependenciesWithUpdates.push(dependency);
+      }
+    } catch (error) {
+      console.error(`Error checking updates for ${dependency.module_name}:`, error);
+    }
+  }
+  
+  return dependenciesWithUpdates;
+}

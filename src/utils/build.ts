@@ -8,6 +8,7 @@ import {
 } from "./fs";
 import { Manifest, RubedoDependency } from "./types";
 import { execWithLog } from "./exec";
+import { checkForUpdates } from "./git";
 
 /**
  * Builds the TypeScript source code using esbuild
@@ -168,14 +169,35 @@ export async function mergeManifest(
 
 /**
  * Builds the addon
+ * @param options Build options
+ * @returns Object containing build info or update info
  */
-export async function buildAddon(): Promise<void> {
+export async function buildAddon(options: {
+  skipUpdateCheck?: boolean | undefined;
+} = {}): Promise<{
+  success: boolean;
+  updatesAvailable?: boolean;
+  updatedDependencies?: RubedoDependency[];
+}> {
   try {
     // Read the manifest
     const manifest = await readManifest();
 
     // Get the Rubedo dependencies
     const rubedoDependencies = getRubedoDependencies(manifest);
+
+    // Check for updates if requested and not explicitly skipped
+    if (!options.skipUpdateCheck) {
+      const dependenciesWithUpdates = await checkForUpdates(rubedoDependencies);
+      
+      if (dependenciesWithUpdates.length > 0) {
+        return {
+          success: true,
+          updatesAvailable: true,
+          updatedDependencies: dependenciesWithUpdates
+        };
+      }
+    }
 
     // Build the source code (produces JavaScript in the scripts directory)
     await buildSource();
@@ -186,7 +208,7 @@ export async function buildAddon(): Promise<void> {
     // Merge the manifest
     await mergeManifest(manifest);
 
-    console.log("Addon built successfully!");
+    return { success: true };
   } catch (error) {
     console.error("Error building addon:", error);
     throw error;
