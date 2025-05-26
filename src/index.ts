@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 import { initCommand } from "./commands/init";
 import { installCommand } from "./commands/install";
