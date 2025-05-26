@@ -4,7 +4,6 @@ import { RubedoDependency } from "./types";
 import fs from "fs-extra";
 import { execWithLog } from "./exec";
 import path from "path";
-import crypto from "crypto";
 import os from "os";
 
 /**
@@ -344,10 +343,6 @@ export async function hasUpdates(
     await git.fetch("origin");
     
     if (version === "latest") {
-      // Get the default branch
-      const branches = await git.branch();
-      const defaultBranch = branches.current;
-      
       // Check if there are any changes
       const status = await git.status();
       return status.behind > 0;
