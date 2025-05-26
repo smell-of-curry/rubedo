@@ -4,7 +4,7 @@
   "description": "A fast, lightweight, versatile MCBE addon linker for Script API development",
   "main": "dist/index.js",
   "bin": {
-    "rubedo": "dist/index.js"
+    "rubedo": "./bin/rubedo"
   },
   "scripts": {
     "build": "rimraf dist && tsc && npm run copy-templates",
